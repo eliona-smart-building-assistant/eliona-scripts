@@ -1,6 +1,6 @@
 # Heating Degree Days (HDD) Calculation and Data Submission to Eliona
 
-This script calculates **Heating Degree Days (HDD)** based on weather data for a specified location. It retrieves the daily average outdoor temperature, computes the required HDD for heating, and sends the results to an asset in the **Eliona** system.
+This script calculates **Heating Degree Days (HDD)** based on weather data for a specified location. It retrieves the previous day average outdoor temperature, computes the required HDD for heating, and sends the results to an asset in the **Eliona** system.
 
 ---
 
@@ -26,44 +26,64 @@ HDD = 0
 
 ## 🛠️ Variables Explained
 
-These are the key variables you can modify to fit your specific requirements.
+Here’s a detailed explanation of the key variables used in the script. These values can be adjusted based on your specific requirements.
+
+---
 
 ### **Location Data**
-- **`latitude`**: The latitude of the location where you want to get temperature and HDD data from.
-- Default: `47.5767`
-- **`longitude`**: The longitude of the location where you want to get temperature and HDD data from.
-- Default: `7.5801`
+- **`latitude`**: The latitude of the location where you want to fetch temperature and HDD data.
+  - **Default**: `47.499882`
+  - **Description**: Represents the latitude coordinate of the location you are monitoring. This can be modified to reflect a different location.
+  
+- **`longitude`**: The longitude of the location where you want to fetch temperature and HDD data.
+  - **Default**: `8.726160`
+  - **Description**: Represents the longitude coordinate of the location you are monitoring. This can be modified to reflect a different location.
+
+---
 
 ### **Global Asset Identifier (GAI)**
-- **`gai`**: Global Asset Identifier used in the Eliona system to specify the asset where the data will be sent.
-- Default: `"WSJ-Test-HGT"`
-- **Important**: Ensure that your asset in Eliona has the correct GAI or update the script accordingly.
+- **`gai`**: The Global Asset Identifier used in the Eliona system to identify the asset where the data will be sent.
+  - **Default**: `"YourGAI"`
+  - **Description**: This should be replaced with the actual GAI for the asset in Eliona where you want to store the heating degree days (HDD) and outside temperature data. Make sure that the specified asset exists in the Eliona system.
 
-### **Attributes**
-- **`degree_days`**: The attribute name in the asset for storing the calculated heating degree days (HDD).
-- **Note**: Make sure the attributes of the given asset GAI match this value in your Eliona system.
+---
 
-- **`ambient_temperature`**: The attribute name in the asset for storing the fetched outdoor temperature.
-- **Purpose**: Specifies where the average outdoor temperature will be recorded in Eliona.
-- **Note**: Ensure that the asset GAI in your Eliona system has attributes corresponding to this name.
+### **Attribute Names**
+- **`degree_days`**: The attribute name in the asset where the calculated heating degree days (HDD) will be stored.
+  - **Default**: `"your_degree_days_attribute_name"`
+  - **Description**: This is the placeholder for the attribute in the Eliona system where the HDD Default will be recorded. Ensure that this attribute exists in the defined asset, or change it to match your setup.
+  
+- **`outside_temperature`**: The attribute name in the asset where the fetched outside temperature will be stored.
+  - **Default**: `"your_outside_temperature_attribute_name"`
+  - **Description**: This attribute stores the average outside temperature fetched from the weather data. Ensure this attribute exists in the defined asset, or adjust it as per your configuration.
 
 ---
 
 ### **Temperature Thresholds**
-- **`base_temperature`**: The base indoor temperature, typically set to **20°C**.
-- **Purpose**: Represents the desired indoor temperature for heating. Used to calculate HDD.
+- **`base_temperature`**: The desired indoor temperature, typically set to **20°C**.
+  - **Default**: `20.0`
+  - **Description**: This is the indoor temperature to which the building should be heated. It is used in the calculation of heating degree days (HDD).
 
 - **`heating_threshold`**: The outdoor temperature threshold, set to **12°C**, below which heating is required.
-- **Purpose**: HDD is only calculated if the outdoor temperature is below this value.
+  - **Default**: `12.0`
+  - **Description**: This represents the threshold outdoor temperature. Heating degree days are only calculated if the outdoor temperature falls below this value.
+
 
 ---
 
 ## ⚙️ Usage Notes
 
-- The script fetches **yesterday's temperature data** using the **UTC timezone**.
-- It is essential to ensure the asset in Eliona with the GAI defined in the script has the appropriate attribute names (`degree_days`, `ambient_temperature`).
-- The script calculates **HDD** only when the outdoor temperature is below the threshold of **12°C**.
+- The script calculates **Heating Degree Days (HDD)** only when the outdoor temperature is below the threshold set in the **`heating_threshold`** variable (default is 12°C). Ensure the threshold is set according to your heating requirements.
 
+- The attributes (`degree_days`, `outside_temperature`) should be of the subtype **"input"** in the Eliona system to ensure the data is correctly stored and processed.
+
+- **Daily Script Execution**: The script retrieves the HDD for the previous day. For optimal performance:
+  - Schedule the script to run **daily**.
+  - Add a **small delay** to allow the day to complete before fetching the previous day's data.
+
+- **Data Aggregation for HDD**:
+  - For the **`degree_days`** attribute, ensure the **aggregation** type is set to **sum**.
+  - Select the **month** and **year** options in the aggregation settings so that you can retrieve the **monthly** and **yearly** HDD values easily through the Eliona system.
 ---
 
 ## 💡 Customization
