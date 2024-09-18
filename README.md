@@ -28,7 +28,7 @@ HDD = 0
 
 Here’s a detailed explanation of the key variables used in the script. These values can be adjusted based on your specific requirements.
 
----
+--
 
 ### **Location Data**
 - **`latitude`**: The latitude of the location where you want to fetch temperature and HDD data.
@@ -39,14 +39,14 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Default**: `8.726160`
   - **Description**: Represents the longitude coordinate of the location you are monitoring. This can be modified to reflect a different location.
 
----
+--
 
 ### **Global Asset Identifier (GAI)**
 - **`gai`**: The Global Asset Identifier used in the Eliona system to identify the asset where the data will be sent.
   - **Default**: `"YourGAI"`
   - **Description**: This should be replaced with the actual GAI for the asset in Eliona where you want to store the heating degree days (HDD) and outside temperature data. Make sure that the specified asset exists in the Eliona system.
 
----
+--
 
 ### **Attribute Names**
 - **`degree_days`**: The attribute name in the asset where the calculated heating degree days (HDD) will be stored.
@@ -57,7 +57,7 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Default**: `"your_outside_temperature_attribute_name"`
   - **Description**: This attribute stores the average outside temperature fetched from the weather data. Ensure this attribute exists in the defined asset, or adjust it as per your configuration.
 
----
+--
 
 ### **Temperature Thresholds**
 - **`base_temperature`**: The desired indoor temperature, typically set to **20°C**.
@@ -69,7 +69,7 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Description**: This represents the threshold outdoor temperature. Heating degree days are only calculated if the outdoor temperature falls below this value.
 
 
----
+--
 
 ## ⚙️ Usage Notes
 
@@ -78,21 +78,14 @@ Here’s a detailed explanation of the key variables used in the script. These v
 - The attributes (`degree_days`, `outside_temperature`) should be of the subtype **"input"** in the Eliona system to ensure the data is correctly stored and processed.
 
 - **Daily Script Execution**: The script retrieves the HDD for the previous day. For optimal performance:
-  - Schedule the script to run **daily**.
+  - Schedule the script to run **daily**. 
   - Add a **small delay** to allow the day to complete before fetching the previous day's data.
+  [Eliona documentation about sceduling the script](https://doc.eliona.io/collection/dokumentation/engineering/skript-engine/skripte-konfigurieren)
 
 - **Data Aggregation for HDD**:
   - For the **`degree_days`** attribute, ensure the **aggregation** type is set to **sum**.
   - Select the **month** and **year** options in the aggregation settings so that you can retrieve the **monthly** and **yearly** HDD values easily through the Eliona system.
----
-
-## 💡 Customization
-
-You can adjust the following parameters based on your specific needs:
-- Modify the **latitude** and **longitude** to fetch weather data from a different location.
-- Adjust the **base temperature** or **heating threshold** as needed for different heating requirements.
-- Ensure the **GAI** and **attribute names** in Eliona match the ones in this script for proper data submission.
-
+  [Eliona documentation about Aggregation](https://doc.eliona.io/collection/dokumentation/engineering/asset-modellierung-templates#aggregation)
 ---
 
 ## 🔗 API Reference
