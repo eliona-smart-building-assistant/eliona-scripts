@@ -2,17 +2,21 @@
 
 This script calculates **Heating Degree Days (HDD)** based on weather data for a specified location. It retrieves the daily average outdoor temperature, computes the required HDD for heating, and sends the results to an asset in the **Eliona** system.
 
-## How the Script Works
+---
+
+## 📋 How the Script Works
 
 1. **Weather Data Fetching**: The script retrieves daily average outdoor temperatures from the [Open-Meteo API](https://open-meteo.com/).
 2. **Heating Degree Days Calculation**: HDD is computed based on the difference between a base indoor temperature (20°C) and the outdoor temperature when it falls below the heating threshold (12°C).
 3. **Data Submission to Eliona**: The calculated HDD and average outdoor temperature are sent to a specific asset in the Eliona system, identified by its Global Asset Identifier (GAI).
 
-## Concept: Heating Degree Days (HDD)
+---
 
-Heating Degree Days (HDD) are a metric used to estimate heating energy requirements for a building. HDD is calculated when the outdoor temperature is below a set threshold (in this case, 12°C). The difference between the base indoor temperature (20°C) and the outdoor temperature indicates how much energy is needed to heat the building.
+## 🔎 Concept: Heating Degree Days (HDD)
 
-For example:
+Heating Degree Days (HDD) is a metric used to estimate heating energy requirements for a building. HDD is calculated when the outdoor temperature is below a set threshold (in this case, 12°C). The difference between the base indoor temperature (20°C) and the outdoor temperature shows how much energy is needed to heat the building.
+
+### 📌 Example:
 - If the outdoor temperature is **5°C**, the HDD is:
 HDD = 20°C - 5°C = 15
 - If the outdoor temperature is **14°C**, no heating is needed, and HDD is:
@@ -20,78 +24,63 @@ HDD = 0
 
 ---
 
-## Variables Explained
+## 🛠️ Variables Explained
+
+These are the key variables you can modify to fit your specific requirements.
 
 ### **Location Data**
-- **`latitude`**: Latitude of the location where temperature data is fetched.
-- **Value**: `47.5767`
-- **Example**: The latitude for Basel, Switzerland.
-
-- **`longitude`**: Longitude of the location where temperature data is fetched.
-- **Value**: `7.5801`
-- **Example**: The longitude for Basel, Switzerland.
+- **`latitude`**: The latitude of the location where you want to get temperature and HDD data from.
+- Default: `47.5767`
+- **`longitude`**: The longitude of the location where you want to get temperature and HDD data from.
+- Default: `7.5801`
 
 ### **Global Asset Identifier (GAI)**
-- **`gai`**: Global Asset Identifier used in the Eliona system to specify the asset where data will be sent.
-- **Value**: `"WSJ-Test-HGT"`
-- **Purpose**: Identifies the target asset in the Eliona system where the HDD and temperature data will be stored.
+- **`gai`**: Global Asset Identifier used in the Eliona system to specify the asset where the data will be sent.
+- Default: `"WSJ-Test-HGT"`
+- **Important**: Ensure that your asset in Eliona has the correct GAI or update the script accordingly.
 
 ### **Attributes**
 - **`degree_days`**: The attribute name in the asset for storing the calculated heating degree days (HDD).
-- **Purpose**: This specifies where the calculated HDD will be recorded in Eliona.
+- **Note**: Make sure the attributes of the given asset GAI match this value in your Eliona system.
 
 - **`ambient_temperature`**: The attribute name in the asset for storing the fetched outdoor temperature.
-- **Purpose**: This specifies where the average outdoor temperature will be recorded in Eliona.
-
-### **Temperature Thresholds**
-- **`base_temperature`**: The base indoor temperature, typically set to **20°C**.
-- **Value**: `20.0`
-- **Purpose**: Represents the indoor temperature for which the building is heated. Used for HDD calculations.
-
-- **`heating_threshold`**: The outdoor temperature threshold, set to **12°C**, below which heating is required.
-- **Value**: `12.0`
-- **Purpose**: Heating degree days are calculated only if the outdoor temperature falls below this value.
+- **Purpose**: Specifies where the average outdoor temperature will be recorded in Eliona.
+- **Note**: Ensure that the asset GAI in your Eliona system has attributes corresponding to this name.
 
 ---
 
-## Script Functionality
+### **Temperature Thresholds**
+- **`base_temperature`**: The base indoor temperature, typically set to **20°C**.
+- **Purpose**: Represents the desired indoor temperature for heating. Used to calculate HDD.
 
-### **1. Fetching Weather Data**
-The script uses the Open-Meteo API to fetch the daily average outdoor temperature for a specified date and location. It queries the following API:
+- **`heating_threshold`**: The outdoor temperature threshold, set to **12°C**, below which heating is required.
+- **Purpose**: HDD is only calculated if the outdoor temperature is below this value.
+
+---
+
+## ⚙️ Usage Notes
+
+- The script fetches **yesterday's temperature data** using the **UTC timezone**.
+- It is essential to ensure the asset in Eliona with the GAI defined in the script has the appropriate attribute names (`degree_days`, `ambient_temperature`).
+- The script calculates **HDD** only when the outdoor temperature is below the threshold of **12°C**.
+
+---
+
+## 💡 Customization
+
+You can adjust the following parameters based on your specific needs:
+- Modify the **latitude** and **longitude** to fetch weather data from a different location.
+- Adjust the **base temperature** or **heating threshold** as needed for different heating requirements.
+- Ensure the **GAI** and **attribute names** in Eliona match the ones in this script for proper data submission.
+
+---
+
+## 🔗 API Reference
+
+The script relies on the [Open-Meteo API](https://open-meteo.com/) to retrieve weather data. The following endpoint is used:
 https://api.open-meteo.com/v1/forecast
-The parameters used include latitude, longitude, date, and the UTC timezone.
-
-### **2. Calculating Heating Degree Days (HDD)**
-If the daily average outdoor temperature is below the **heating threshold (12°C)**, the HDD is calculated as:
-HDD = base_temperature - average_outdoor_temperature
-If the outdoor temperature is higher than or equal to the threshold, **no heating is required**, and HDD is set to `0`.
-
-### **3. Sending Data to Eliona**
-Once the average outdoor temperature and the HDD have been calculated, they are sent to the Eliona system using the following function:
-```python
-eliona.SetHeap(gai, "input", data_to_send, eliona.MakeSource(id))
-Where gai is the identifier of the asset in Eliona, and data_to_send contains the temperature and HDD data.
-
-Example Calculation
-Here is an example for calculating HDD:
-
-Date	Outdoor Temperature	Heating Degree Days	Calculation
-01.01.2023	2°C	18	(20 - 2) = 18
-02.01.2023	-4°C	24	(20 - (-4)) = 24
-03.01.2023	14°C	0	No heating required (14 > 12), HDD = 0
-Summary:
-Indoor temperature: 20°C
-Heating threshold: 12°C
-HDD calculation: If outdoor temperature < 12°C, HDD = 20 - outdoor temperature; otherwise, HDD = 0.
-Notes
-The HDD is calculated for yesterday's date, using UTC timezone.
-The base indoor temperature is 20°C, and the heating threshold is 12°C.
-Data is fetched from the Open-Meteo API and sent to Eliona for asset tracking and further analysis.
-
-### **Explanation of the Format:**
-- **Headers**: Use markdown `#` for main headers and `##` for subheaders, making it easy to read and navigate.
-- **Code Blocks**: Code snippets and examples are enclosed in triple backticks (` ``` `) for proper formatting.
-- **Tables**: Used for clearly presenting examples, such as the HDD calculations.
-- **Bold Text**: Important terms are highlighted with double asterisks (`**`) for emphasis.
-
-This format will ensure that your `README.md` file is well-structured, informative, and easy to read.
+Parameters include:
+- `latitude`: Latitude of the location
+- `longitude`: Longitude of the location
+- `daily`: Fetches daily mean temperature
+- `timezone`: Sets the timezone to UTC

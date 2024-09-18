@@ -8,15 +8,15 @@ def UserFunction(id, eliona):
         # Variables
         # ------------------------------------------------#
         # Latitude & Longitude of the location
-        latitude = 47.5767
-        longitude = 7.5801
+        latitude = 47.499882
+        longitude = 8.726160
 
         # GAI of the Asset where the data should go
-        gai = "WSJ-Test-HGT"
+        gai = "YourGAI"
 
         # Attribute names for degree days and temperature
-        degree_days = "degree_days"
-        ambient_temperature = "ambient_temperature"
+        degree_days = "your_degree_days_attribute_name"
+        outside_temperature = "your_outside_temperature_attribute_name"
 
         # Indoor temperature for the building (e.g., HGT 20/12)
         base_temperature = 20.0
@@ -91,7 +91,7 @@ def UserFunction(id, eliona):
 
         # Prepare data to send
         data_to_send = {
-            ambient_temperature: avg_temp,
+            outside_temperature: avg_temp,
             degree_days: hdd,
         }
 
