@@ -10,8 +10,6 @@ This script calculates **Heating Degree Days (HDD)** based on weather data for a
 2. **Heating Degree Days Calculation**: HDD is computed based on the difference between a base indoor temperature (20°C) and the outdoor temperature when it falls below the heating threshold (12°C).
 3. **Data Submission to Eliona**: The calculated HDD and average outdoor temperature are sent to a specific asset in the Eliona system, identified by its Global Asset Identifier (GAI).
 
----
-
 ## 🔎 Concept: Heating Degree Days (HDD)
 
 Heating Degree Days (HDD) is a metric used to estimate heating energy requirements for a building. HDD is calculated when the outdoor temperature is below a set threshold (in this case, 12°C). The difference between the base indoor temperature (20°C) and the outdoor temperature shows how much energy is needed to heat the building.
@@ -28,8 +26,6 @@ HDD = 0
 
 Here’s a detailed explanation of the key variables used in the script. These values can be adjusted based on your specific requirements.
 
---
-
 ### **Location Data**
 - **`latitude`**: The latitude of the location where you want to fetch temperature and HDD data.
   - **Default**: `47.499882`
@@ -39,14 +35,10 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Default**: `8.726160`
   - **Description**: Represents the longitude coordinate of the location you are monitoring. This can be modified to reflect a different location.
 
---
-
 ### **Global Asset Identifier (GAI)**
 - **`gai`**: The Global Asset Identifier used in the Eliona system to identify the asset where the data will be sent.
   - **Default**: `"YourGAI"`
   - **Description**: This should be replaced with the actual GAI for the asset in Eliona where you want to store the heating degree days (HDD) and outside temperature data. Make sure that the specified asset exists in the Eliona system.
-
---
 
 ### **Attribute Names**
 - **`degree_days`**: The attribute name in the asset where the calculated heating degree days (HDD) will be stored.
@@ -56,8 +48,6 @@ Here’s a detailed explanation of the key variables used in the script. These v
 - **`outside_temperature`**: The attribute name in the asset where the fetched outside temperature will be stored.
   - **Default**: `"your_outside_temperature_attribute_name"`
   - **Description**: This attribute stores the average outside temperature fetched from the weather data. Ensure this attribute exists in the defined asset, or adjust it as per your configuration.
-
---
 
 ### **Temperature Thresholds**
 - **`base_temperature`**: The desired indoor temperature, typically set to **20°C**.
@@ -69,7 +59,7 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Description**: This represents the threshold outdoor temperature. Heating degree days are only calculated if the outdoor temperature falls below this value.
 
 
---
+---
 
 ## ⚙️ Usage Notes
 
