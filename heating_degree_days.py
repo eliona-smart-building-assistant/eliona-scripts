@@ -125,7 +125,7 @@ def UserFunction(id, eliona):
                 asset_id = {asset_id}
                 AND subtype = '{subtype}';
         """
-        print(sql_query, flush=True)
+
         # Execute SQL Query to insert data into heap
         try:
             eliona.SQLQuery(query=sql_query)
