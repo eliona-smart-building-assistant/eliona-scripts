@@ -58,7 +58,7 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - **Default**: `12.0`
   - **Description**: This represents the threshold outdoor temperature. Heating degree days are only calculated if the outdoor temperature falls below this value.
 
-- **`Time Configuration`**
+### **`Time Configuration`**
 - **utc_offset_hours**: The UTC offset used to adjust the target date and time.
   - **Default**: `2`
   - **Description**: Defines the number of hours to offset from Coordinated Universal Time (UTC). For example, for UTC+2, set `utc_offset_hours` to `2`. This ensures that the target date is calculated based on the specified time zone, allowing accurate retrieval of temperature and HDD data relative to your local time.
