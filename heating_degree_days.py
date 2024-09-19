@@ -23,11 +23,21 @@ def UserFunction(id, eliona):
 
         # Heating threshold, heating is required when avg temp is below 12°C
         heating_threshold = 12.0
+
+        # Define the UTC offset of your timezone. For UTC+2, set utc_offset_hours to 2
+        utc_offset_hours = 2
         # ------------------------------------------------#
 
         # Calculate target date (yesterday's date in UTC)
-        target_date = datetime.now(timezone.utc) - timedelta(days=1)
-        target_date_str = target_date.date()
+        utc_offset = timezone(timedelta(hours=utc_offset_hours))
+        target_datetime = datetime.now(utc_offset)
+        target_date = target_datetime - timedelta(days=1)
+        target_date_str = target_date.date().isoformat()
+
+        target_date_input = target_date.replace(
+            hour=23, minute=59, second=0, microsecond=0
+        ).isoformat()
+
         # Open-Meteo API endpoint
         api_url = "https://api.open-meteo.com/v1/forecast"
         params = {
@@ -95,12 +105,33 @@ def UserFunction(id, eliona):
             degree_days: hdd,
         }
 
-        # Send data to Eliona
+        # Convert data_to_send to JSON string
+        data_json = json.dumps(data_to_send)
+
+        # Prepare SQL INSERT statement
+        subtype = "input"  # You can adjust this as needed
+
+        # Ensure that single quotes in JSON are escaped
+        data_json_escaped = data_json.replace("'", "''")
+        asset_id = eliona.GetAssetIDByGAI(gai)
+
+        # Construct the SQL query with ts, asset_id, subtype, data
+        sql_query = f"""
+            UPDATE heap
+            SET
+                ts = '{target_date_input}',
+                data = '{data_json_escaped}'
+            WHERE
+                asset_id = {asset_id}
+                AND subtype = '{subtype}';
+        """
+        print(sql_query, flush=True)
+        # Execute SQL Query to insert data into heap
         try:
-            eliona.SetHeap(gai, "input", data_to_send, eliona.MakeSource(id))
-            print("Data sent to Eliona successfully.", flush=True)
+            eliona.SQLQuery(query=sql_query)
+            print("Data inserted into Eliona heap successfully.", flush=True)
         except Exception as e:
-            error_message = f"Error sending data to Eliona: {e}"
+            error_message = f"Error executing SQL query to insert data: {e}"
             print(error_message, flush=True)
             return
 
