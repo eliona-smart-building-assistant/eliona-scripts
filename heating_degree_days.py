@@ -34,6 +34,7 @@ def UserFunction(id, eliona):
         target_date = target_datetime - timedelta(days=1)
         target_date_str = target_date.date().isoformat()
 
+        # Set the timestamp that will be put into the heap to 23:59 of the previous day
         target_date_input = target_date.replace(
             hour=23, minute=59, second=0, microsecond=0
         ).isoformat()

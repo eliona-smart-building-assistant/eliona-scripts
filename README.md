@@ -62,12 +62,14 @@ Here’s a detailed explanation of the key variables used in the script. These v
 - **utc_offset_hours**: The UTC offset used to adjust the target date and time.
   - **Default**: `2`
   - **Description**: Defines the number of hours to offset from Coordinated Universal Time (UTC). For example, for UTC+2, set `utc_offset_hours` to `2`. This ensures that the target date is calculated based on the specified time zone, allowing accurate retrieval of temperature and HDD data relative to your local time.
-  
+
 ---
 
 ## ⚙️ Usage Notes
 
 - The script calculates **Heating Degree Days (HDD)** only when the outdoor temperature is below the threshold set in the **`heating_threshold`** variable (default is 12°C). Ensure the threshold is set according to your heating requirements.
+
+- The timestamp added to the heap is set to 23:59 of the previous day by default. However, this can be modified if necessary in line 39.
 
 - The attributes (`degree_days`, `outside_temperature`) should be of the subtype **"input"** in the Eliona system to ensure the data is correctly stored and processed.
 
@@ -80,6 +82,8 @@ Here’s a detailed explanation of the key variables used in the script. These v
   - For the **`degree_days`** attribute, ensure the **aggregation** type is set to **sum**.
   - Select the **month** and **year** options in the aggregation settings so that you can retrieve the **monthly** and **yearly** HDD values easily through the Eliona system.
   [Eliona documentation about Aggregation](https://doc.eliona.io/collection/dokumentation/engineering/asset-modellierung-templates#aggregation)
+
+  
 ---
 
 ## 🔗 API Reference
