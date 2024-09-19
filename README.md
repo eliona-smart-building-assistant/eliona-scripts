@@ -1,6 +1,7 @@
 # Heating Degree Days (HDD) Calculation and Data Submission to Eliona
 
 This script calculates **Heating Degree Days (HDD)** based on weather data for a specified location. It retrieves the previous day average outdoor temperature, computes the required HDD for heating, and sends the results to an asset in the **Eliona** system.
+[Detailed information](https://energie.ch/heizgradtage/)
 
 ---
 
