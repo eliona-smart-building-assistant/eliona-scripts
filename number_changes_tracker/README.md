@@ -15,7 +15,7 @@ This script helps track and monitor the number of unique changes occurring in th
 ### 1. Eliona API Key
 
 You need an API Key from the Eliona platform to authenticate the script. 
-
+[How to create an API Key](https://doc.eliona.io/collection/dokumentation/einstellungen/api-schlussel#api-schlussel-erstellen)
 Replace the placeholder with your API key:
 
 ```python
@@ -59,7 +59,7 @@ By default, the script can monitor any attribute subtype, such as **input** or *
 
 If you want to monitor **output** attributes (or other subtypes), follow these steps:
 
-- **Create a new asset type** that has the same attributes as the source asset, but with the attributes set to **input** instead of **output**.
+- **Create a new asset type** that has the same attributes as the source asset, but with the attributes set to **input** instead of **output**. [How to create an Asset Type](https://doc.eliona.io/collection/dokumentation/assets/asset-modellierung-templates-erstellen/ein-neues-template-erstellen)
 - Ensure that the **target** asset (with the GAI) uses this new asset type, where the relevant attributes are configured as **input**.
 This ensures the script can track changes for any attribute type but submit results to attributes designated as **input**.
 
