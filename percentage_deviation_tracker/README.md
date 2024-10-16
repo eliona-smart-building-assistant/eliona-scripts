@@ -18,7 +18,9 @@ You need an API Key from the Eliona platform to authenticate the script.
 [How to create an API Key](https://doc.eliona.io/collection/dokumentation/einstellungen/api-schlussel#api-schlussel-erstellen)
 Replace the placeholder with your API key:
 
+```python
 ELIONA_API_KEY = "your_api_key_here"
+```
 
 ### 2. Source Asset ID
 
@@ -26,7 +28,9 @@ Identify the **Asset ID** of the source asset you want to monitor.
 
 Replace the `source_asset_id` in the script:
 
+```python
 source_asset_id = 1  # Replace with the asset ID you want to monitor
+```
 
 ### 3. Target Asset GAI
 
@@ -34,20 +38,25 @@ Create a target asset in the Eliona platform with the same asset type as the sou
 
 Replace the placeholder with the target GAI:
 
+```python
 target_gai = "your_target_GAI_here"
+```
 
 ### 4. API Host URL
 
 Set the appropriate **Eliona Host URL** for your environment:
 
+```python
 ELIONA_HOST = "https://your.url.io//api/v2"
+```
 
 ### 5. Time Period
 
 You can adjust the time period (in days) to monitor changes by modifying the `days_back` variable:
 
+```python
 days_back = 1000  # The number of days to check for changes
-
+```
 ### 6. Monitoring Other Attribute Subtypes
 By default, the script can monitor any attribute subtype, such as **input** or **output**. However, it can only write the calculated results into attributes with the input subtype.
 
