@@ -84,7 +84,7 @@ Additionally, it could be used to monitor user-driven changes. For example, if y
 
 ## 🔗 Resources
 
-- [Eliona API Documentation](https://eliona.io/docs)
+- [Eliona API Documentation](https://doc.eliona.io/)
 - [Eliona Platform](https://eliona.io)
 
 Make sure that your assets and attributes are correctly set up in Eliona to ensure the script functions properly and displays accurate results.
