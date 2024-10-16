@@ -6,4 +6,5 @@ The Eliona Script Engine allows to create and execute custom scripts that enhanc
 This repository includes various scripts organized into subdirectories based on their functionality. Each script is documented with usage instructions and examples to facilitate quick implementation.
 
 - [Heating Degree Days](./heating_degree_days)
-- [Number Changes Tracker](./number_changes_tracker/README.md)
+- [Number Changes Tracker](./number_changes_tracker)
+- [Percentage Deviation Tracker](./percentage_deviation_tracker)
