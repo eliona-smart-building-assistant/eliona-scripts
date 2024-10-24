@@ -17,7 +17,7 @@ This script processes **PDF attachments** uploaded to an asset in the **Eliona**
 - **PDF Format**: Only files in `.pdf` format are processed.
 - **File Name Keyword**: Ensure that the file name contains the (`file_name_keyword`); otherwise, the file will be skipped.
 - **Unique File Names**: Do not upload files with the same name twice, as the script will skip files already processed.
-- **Attribute Names**: Ensure that the attribute names in the asset's template match the keywords specified in the script (`value_keywords`). The script extracts values based on these keywords and sends them to the corresponding attributes in Eliona. [Attribute zum Template hinzufügen](https://doc.eliona.io/collection/dokumentation/assets/asset-modellierung-templates-erstellen/ein-neues-template-erstellen#id-3-attribute-zum-template-hinzufugen)
+- **Attribute Names**: Ensure that the attribute names in the asset's template match the keywords specified in the script (`value_keywords`). The script extracts values based on these keywords and sends them to the corresponding attributes in Eliona. [Add attribute to template](https://doc.eliona.io/collection/dokumentation/assets/asset-modellierung-templates-erstellen/ein-neues-template-erstellen#id-3-attribute-zum-template-hinzufugen)
 
 ---
 
