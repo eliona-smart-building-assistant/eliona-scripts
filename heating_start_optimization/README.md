@@ -81,7 +81,9 @@ This script uses an adaptive table to improve heating activation timing:
 
 Define the **Asset ID** of the Eliona asset for tracking heating data:
 
-code: asset_id = 439  # Replace with your actual Eliona asset ID
+```python
+  asset_id = 439  # Replace with your actual Eliona asset ID
+```
 
 ### 4. Adjust Temperature Ranges and Initial Values
 
