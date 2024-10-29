@@ -9,3 +9,5 @@ This repository includes various scripts organized into subdirectories based on 
 - [Number Changes Tracker](./number_changes_tracker)
 - [Percentage Deviation Tracker](./percentage_deviation_tracker)
 - [Pdf Attachement Processor](./pdf_attachement_processor)
+- [JotForms to Eliona](./JotForms_to_Eliona)
+- [Heating Start Optimization](./heating_start_optimization)
