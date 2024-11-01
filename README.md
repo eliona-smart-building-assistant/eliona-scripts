@@ -11,3 +11,6 @@ This repository includes various scripts organized into subdirectories based on 
 - [Pdf Attachement Processor](./pdf_attachement_processor)
 - [JotForms to Eliona](./JotForms_to_Eliona)
 - [Heating Start Optimization](./heating_start_optimization)
+- [Asset Ticket States Counter](./ticketing_scripts/asset_ticket_states_counter)
+- [Number of Closed Tickets](./ticketing_scripts/number_of_closed_tickets)
+- [Ticket Statistics](./ticketing_scripts/ticket_statistics/)
